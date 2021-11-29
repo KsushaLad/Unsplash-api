@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/drawable/button.xml" value="0.5703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/drawable/gradient.xml" value="0.5703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/drawable/gradient_1.xml" value="0.5703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/drawable/ic_baseline_insert_emoticon_24.xml" value="0.5703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/drawable/item.xml" value="0.5703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/drawable/point.xml" value="0.5703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/layout/fragment_details.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/layout/fragment_gallery.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/layout/item_unsplash_photo.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/UNSPLASH-MVVM-main/app/src/main/res/layout/unsplash_photo_load_state_footer.xml" value="0.5541666666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
