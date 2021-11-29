@@ -3,6 +3,7 @@ package com.codinginflow.imagesearchapp.data
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+// TODO Не надо закидывать внутрь дата класа, другие дата классы.
 @Parcelize
 data class UnsplashPhoto(            //photo
     val id: String,

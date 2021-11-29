@@ -32,15 +32,21 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mScaleFactor = 1.5f
 
+    // TODO очень нагружженый метод получился у тебя, его надо разбить на более мелкие, которые будут отвечать за отределенную задачу,
+    //  и последовательно вызывать их
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentDetailsBinding.bind(view)
+        // TODO Во фрагметах лучше не использовать такие вызовы, как просто context потому что они Nullable
+        //      Для этого в котлине есть такие методы как requireActivity(), requireContext()
         val wallpaperManager = WallpaperManager.getInstance(context)
         binding.apply {
             val photo = args.photo
 
+            // TODO такие вещи хорошо выносить в отдельные экстеншены. В данном случае, лучше сделать экстеншн
+            //  для ImageView, чтобы ты могда просто написть imageView.load(imagePath, placeholder)
             Glide.with(this@DetailsFragment)
                 .load(photo.urls.full)
                 .error(R.drawable.ic_error)
@@ -67,6 +73,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                         textViewDescription.isVisible = photo.description != null
                         return false
                     }
+                    // TODO Надо чтобы имя компонента отражало, за что он отвечает. Допустим, если это ImageView для превьювера,
+                //         то и имя давать ему говорящее об этом. Обычно первые 2-3 буквы отражают, что за помпонент и потом за что он
+                //         отвечает. В данном случае imgImagePreview
                 }) .into(imageView)
 
            //mScaleGestureDetector = ScaleGestureDetector(image_view.context, ScaleListener())
@@ -88,6 +97,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             val intent = Intent(Intent.ACTION_VIEW, uri)
 
             textViewCreator.apply {
+                // TODO такие вещи лучше выносить в строковые ресурсы.
                 text = "Photo by ${photo.user.name} on Unsplash"
                 setOnClickListener {
                     context.startActivity(intent)
@@ -97,12 +107,14 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-
+    // TODO  mScaleGestureDetector!!.onTouchEvent(event) нельзя использовать вот такие вот конструкции, потому что если у тебя будет
+    //      стоять !!, а он окажется null, тогда приложение просто закроется с ошибкой NullPointerException
     fun onTouchEvent(event: MotionEvent): Boolean {
         return mScaleGestureDetector!!.onTouchEvent(event)
     }
 
-
+    // TODO Лушче не использовать inner class, потому что потом тяжело их искать и они загромождают код. Лучше выносить их отдельными
+    //  файлами, в какую то папку по типу utils.
     private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
         override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
             mScaleFactor *= scaleGestureDetector.scaleFactor

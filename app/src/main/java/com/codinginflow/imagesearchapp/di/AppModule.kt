@@ -17,6 +17,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
+            // TODO BuildConfig.BASE_URL вместо UnsplashApi.BASE_URL
             .baseUrl(UnsplashApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

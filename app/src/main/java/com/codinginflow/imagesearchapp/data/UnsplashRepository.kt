@@ -7,6 +7,7 @@ import com.codinginflow.imagesearchapp.api.UnsplashApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
+// TODO Надо вынести 20 и 100 в какой то файл с константами. Создать папку типа utils, и там файл Constants
 @Singleton
 class UnsplashRepository @Inject constructor(private val unsplashApi: UnsplashApi) {
 

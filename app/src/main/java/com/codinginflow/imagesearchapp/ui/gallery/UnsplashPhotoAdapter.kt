@@ -14,6 +14,10 @@ import com.codinginflow.imagesearchapp.databinding.ItemUnsplashPhotoBinding
 class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
     PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapter.PhotoViewHolder>(PHOTO_COMPARATOR) {
 
+    // TODO в данном случае я бы напил вот так, чтобы уменьшить колличество строк
+    //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+    //        return PhotoViewHolder(ItemUnsplashPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val binding =
             ItemUnsplashPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -62,6 +66,7 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
         fun onItemClick(photo: UnsplashPhoto)
     }
 
+    // TODO Лучше сделать это отдельным классом, потому что выделение памяти на companion object работает, как на любых сингтонах
     companion object {
         private val PHOTO_COMPARATOR = object : DiffUtil.ItemCallback<UnsplashPhoto>() {
             override fun areItemsTheSame(oldItem: UnsplashPhoto, newItem: UnsplashPhoto) =

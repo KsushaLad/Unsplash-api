@@ -24,6 +24,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     private val viewModel by viewModels<GalleryViewModel>()
 
     private var _binding: FragmentGalleryBinding? = null
+    // TODO Избавься пожалуйста от !!
     private val binding get() = _binding!!
 
     var d_3: CardView? = null
@@ -33,6 +34,8 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     var travel: CardView? = null
     var animals: CardView? = null
 
+    // TODO Та же проблема что и в предыдущем фрагменте. Очень большой получился у тебя метод. Надо подробить его на более мелкие
+    //  Тут можно инициализацию адаптера вынести отдельно, и разна маленькие методы с зонами ответственности
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,6 +60,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
         adapter.addLoadStateListener { loadState ->
             binding.apply {
+                // TODO Вынес бы эти 4 строки в отдельный метод
                 progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                 recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                 buttonRetry.isVisible = loadState.source.refresh is LoadState.Error
@@ -113,6 +117,18 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
     private fun setRecyclerView() {
         binding.recyclerView.apply {
+            // TODO Это можно задавать в xml верстке, при том у тебя задано, но не то
+            //            <androidx.recyclerview.widget.RecyclerView
+            //             ...
+            //            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            //            tools:listitem="@layout/item_unsplash_photo" />
+            //  А можно так:
+            //            <androidx.recyclerview.widget.RecyclerView
+            //              ...
+            //            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            //            app:spanCount="2"
+            //            tools:listitem="@layout/item_unsplash_photo" />
+            //  Теперь этот метод вообще не надо
             layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
@@ -133,7 +149,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
+                // TODO в Kotlin для таких вещей есть query.isNullOrEmpty()
                 if (query != null) {
                     binding.recyclerView.scrollToPosition(0)
                     viewModel.searchPhotos(query)
@@ -144,6 +160,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
+                    // TODO в Kotlin для таких вещей есть newText.isEmpty или newText.isNotEmpty
                     if(newText.length == 0){
                         binding.recyclerView.scrollToPosition(0)
                         viewModel.searchPhotos("popular")

@@ -20,6 +20,7 @@ class GalleryViewModel @ViewModelInject constructor(
         repository.getSearchResults(queryString).cachedIn(viewModelScope)
     }
 
+    // TODO тут надл
     fun searchPhotos(query: String) {
         currentQuery.value = query
     }

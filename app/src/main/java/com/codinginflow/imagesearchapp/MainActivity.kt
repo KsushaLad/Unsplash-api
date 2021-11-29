@@ -12,11 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    // TODO Лучше быть аккауратнее с lateinit и спользовать Nullable переменные
+    // TODO В данном случае лучше сделать
     private lateinit var navController: NavController
 
-
-
-
+    // TODO Тогда вот здесь сделать with(navHostFragment.findNavController()) { navController = this .... }
     @SuppressLint("CommitTransaction", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,19 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-
-
     }
-
 
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
-
-
-
-
 }

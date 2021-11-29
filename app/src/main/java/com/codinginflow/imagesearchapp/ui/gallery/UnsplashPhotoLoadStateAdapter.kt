@@ -11,6 +11,13 @@ import com.codinginflow.imagesearchapp.databinding.UnsplashPhotoLoadStateFooterB
 class UnsplashPhotoLoadStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<UnsplashPhotoLoadStateAdapter.LoadStateViewHolder>() {
 
+    // TODO в данном случае я бы напил вот так, чтобы уменьшить колличество строк
+    //    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) =
+    //       return LoadStateViewHolder(UnsplashPhotoLoadStateFooterBinding.inflate(
+    //            LayoutInflater.from(parent.context),
+    //            parent,
+    //            false
+    //      ))
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         val binding = UnsplashPhotoLoadStateFooterBinding.inflate(
             LayoutInflater.from(parent.context),
