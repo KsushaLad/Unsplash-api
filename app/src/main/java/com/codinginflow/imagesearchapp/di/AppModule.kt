@@ -1,5 +1,6 @@
 package com.codinginflow.imagesearchapp.di
 
+import com.codinginflow.imagesearchapp.BuildConfig
 import com.codinginflow.imagesearchapp.api.UnsplashApi
 import dagger.Module
 import dagger.Provides
@@ -17,7 +18,7 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl(UnsplashApi.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

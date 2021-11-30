@@ -7,8 +7,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -25,93 +23,87 @@ import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import java.io.IOException
 import com.codinginflow.imagesearchapp.MyScaleGestures
+import com.codinginflow.imagesearchapp.R.string.photo_by_on_Unsplash
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val args by navArgs<DetailsFragmentArgs>()
-    private var mScaleGestureDetector: ScaleGestureDetector? = null
-    private var mScaleFactor = 1.5f
 
-    @SuppressLint("ClickableViewAccessibility")
+
+    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val binding = FragmentDetailsBinding.bind(view)
-        val wallpaperManager = WallpaperManager.getInstance(context)
+        val wallpaperManager = WallpaperManager.getInstance(requireContext())
         binding.apply {
             val photo = args.photo
-
-            Glide.with(this@DetailsFragment)
-                .load(photo.urls.full)
-                .error(R.drawable.ic_error)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        progressBar.isVisible = false
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        progressBar.isVisible = false
-                        textViewCreator.isVisible = true
-                        textViewDescription.isVisible = photo.description != null
-                        return false
-                    }
-                }) .into(imageView)
-
-           //mScaleGestureDetector = ScaleGestureDetector(image_view.context, ScaleListener())
-
-            imageView.setOnTouchListener( MyScaleGestures(context))
-
-            set.setOnClickListener { view ->
-                Toast.makeText(context, "DONE", Toast.LENGTH_SHORT).show()
-                val bitmap = (image_view.getDrawable() as BitmapDrawable).bitmap
-                try {
-                    wallpaperManager.setBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
+            detailsPhotoText()
+            imgImagePreview.setOnTouchListener(MyScaleGestures(requireContext()))
+            setWallpaper(wallpaperManager)
             textViewDescription.text = photo.description
-
             val uri = Uri.parse(photo.user.attributionUrl)
             val intent = Intent(Intent.ACTION_VIEW, uri)
+            createLinkToUnsplash(intent)
+        }
+    }
 
-            textViewCreator.apply {
-                text = "Photo by ${photo.user.name} on Unsplash"
-                setOnClickListener {
-                    context.startActivity(intent)
-                }
-                paint.isUnderlineText = true
+    private fun setWallpaper(wallpaperManager: WallpaperManager) {
+        set.setOnClickListener { view ->
+            Toast.makeText(context, "DONE", Toast.LENGTH_SHORT).show()
+            val bitmap = (imgImagePreview.getDrawable() as BitmapDrawable).bitmap
+            try {
+                wallpaperManager.setBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }
 
-
-    fun onTouchEvent(event: MotionEvent): Boolean {
-        return mScaleGestureDetector!!.onTouchEvent(event)
-    }
-
-
-    private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-        override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
-            mScaleFactor *= scaleGestureDetector.scaleFactor
-            mScaleFactor = Math.max(0.5f, Math.min(mScaleFactor, 1.5f))
-            image_view.setScaleX(mScaleFactor)
-            image_view.setScaleY(mScaleFactor)
-            return true
+    @SuppressLint("SetTextI18n", "StringFormatInvalid")
+    private fun createLinkToUnsplash(intent: Intent) {
+        text_view_creator.apply {
+            text =
+                resources.getString(photo_by_on_Unsplash) + " " + args.photo.user.name + " " + resources.getString(
+                    R.string.photo_by_on_Unsplash1
+                )
+            setOnClickListener {
+                context.startActivity(intent)
+            }
+            paint.isUnderlineText = true
         }
     }
+
+    private fun detailsPhotoText() {
+        Glide.with(this@DetailsFragment)
+            .load(args.photo.urls.full)
+            .error(R.drawable.ic_error)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    progress_bar.isVisible = false
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    progress_bar.isVisible = false
+                    text_view_creator.isVisible = true
+                    text_view_description.isVisible = args.photo.description != null
+                    return false
+                }
+            }).into(imgImagePreview)
+    }
+
+
 }
 
 

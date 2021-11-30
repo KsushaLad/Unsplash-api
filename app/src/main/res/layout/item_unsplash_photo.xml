@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_layout"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:layout_margin="5dp"
-    >
+    android:layout_height="@dimen/card_height"
+    android:layout_margin="@dimen/layout_marginBottom">
 
 <androidx.cardview.widget.CardView
     android:layout_width="wrap_content"
-    android:layout_height="250dp"
+    android:layout_height="@dimen/card_height"
     android:layout_alignTop="@id/relative_layout"
     android:layout_alignBottom="@id/relative_layout"
     android:background="@drawable/item"
-    tools:ignore="NotSibling"
-    app:cardCornerRadius="15dp">
+    tools:ignore="MissingConstraints,NotSibling"
+    app:cardCornerRadius="@dimen/layout_marginStart">
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/imgImagePreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@id/image_view"
+        android:layout_height="@dimen/cardView_height"
+        android:layout_alignBottom="@id/imgImagePreview"
         android:background="@drawable/gradient" />
 
     <TextView
         android:id="@+id/text_view_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/image_view"
-        android:layout_margin="8dp"
-        android:drawablePadding="4dp"
+        android:layout_alignBottom="@id/imgImagePreview"
+        android:layout_margin="@dimen/margin_layout"
+        android:drawablePadding="@dimen/bottom_margin"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
@@ -43,10 +41,5 @@
         tools:text="username" />
 
 
-
-
 </androidx.cardview.widget.CardView>
-
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

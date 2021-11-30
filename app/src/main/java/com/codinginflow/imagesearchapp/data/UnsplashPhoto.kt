@@ -9,22 +9,21 @@ data class UnsplashPhoto(            //photo
     val description: String?,
     val urls: UnsplashPhotoUrls,
     val user: UnsplashUser
+) : Parcelable
+
+@Parcelize
+data class UnsplashPhotoUrls(     //photo - urls
+    val raw: String,
+    val full: String,
+    val regular: String,
+    val small: String,
+    val thumb: String
+) : Parcelable
+
+@Parcelize
+data class UnsplashUser(         //information for account
+    val name: String,
+    val username: String
 ) : Parcelable {
-
-    @Parcelize
-    data class UnsplashPhotoUrls(     //photo - urls
-        val raw: String,
-        val full: String,
-        val regular: String,
-        val small: String,
-        val thumb: String
-    ) : Parcelable
-
-    @Parcelize
-    data class UnsplashUser(         //information for account
-        val name: String,
-        val username: String
-    ) : Parcelable {
-        val attributionUrl get() = "https://unsplash.com/$username?utm_source=ImageSearchApp&utm_medium=referral"
-    }
+    val attributionUrl get() = "https://unsplash.com/$username?utm_source=ImageSearchApp&utm_medium=referral"
 }

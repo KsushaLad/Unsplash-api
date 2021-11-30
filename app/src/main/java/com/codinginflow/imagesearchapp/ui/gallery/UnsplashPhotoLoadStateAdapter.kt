@@ -12,13 +12,13 @@ class UnsplashPhotoLoadStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<UnsplashPhotoLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
-        val binding = UnsplashPhotoLoadStateFooterBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        return LoadStateViewHolder(
+            UnsplashPhotoLoadStateFooterBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-
-        return LoadStateViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {

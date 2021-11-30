@@ -24,7 +24,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     private val viewModel by viewModels<GalleryViewModel>()
 
     private var _binding: FragmentGalleryBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     var d_3: CardView? = null
     var textures: CardView? = null
@@ -35,37 +35,39 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         _binding = FragmentGalleryBinding.bind(view)
-
         val adapter = UnsplashPhotoAdapter(this)
+        bindingGalleryFragment(adapter)
+        observe(adapter)
+        load(adapter)
+        setHasOptionsMenu(true)
+        initialization()
+        buttonsCategory()
+    }
 
-        binding.apply {
-            setRecyclerView()
-            recyclerView.setHasFixedSize(true)
+    private fun bindingGalleryFragment(unsplashPhotoAdapter: UnsplashPhotoAdapter) {
+        binding?.apply {
+            recyclerView?.setHasFixedSize(true)
             recyclerView.itemAnimator = null
-            recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = UnsplashPhotoLoadStateAdapter { adapter.retry() },
-                footer = UnsplashPhotoLoadStateAdapter { adapter.retry() }
+            recyclerView.adapter = unsplashPhotoAdapter.withLoadStateHeaderAndFooter(
+                header = UnsplashPhotoLoadStateAdapter { unsplashPhotoAdapter.retry() },
+                footer = UnsplashPhotoLoadStateAdapter { unsplashPhotoAdapter.retry() }
             )
-            buttonRetry.setOnClickListener { adapter.retry() }
+            buttonRetry.setOnClickListener { unsplashPhotoAdapter.retry() }
         }
+    }
 
-        viewModel.photos.observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
-        }
 
-        adapter.addLoadStateListener { loadState ->
+    private fun load(unsplashPhotoAdapter: UnsplashPhotoAdapter) {
+        unsplashPhotoAdapter.addLoadStateListener { loadState ->
             binding.apply {
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                this!!.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                this.recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                 buttonRetry.isVisible = loadState.source.refresh is LoadState.Error
                 textViewError.isVisible = loadState.source.refresh is LoadState.Error
-
-                // empty view
                 if (loadState.source.refresh is LoadState.NotLoading &&
                     loadState.append.endOfPaginationReached &&
-                    adapter.itemCount < 1
+                    unsplashPhotoAdapter.itemCount < 1
                 ) {
                     recyclerView.isVisible = false
                     textViewEmpty.isVisible = true
@@ -74,46 +76,45 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                 }
             }
         }
+    }
 
-        setHasOptionsMenu(true)
 
-        initialization()
-
+    private fun buttonsCategory() {
         d_3?.setOnClickListener {
-            binding.recyclerView.scrollToPosition(0)
+            binding?.recyclerView?.scrollToPosition(0)
             viewModel.searchPhotos("3d")
         }
 
         textures?.setOnClickListener {
-            binding.recyclerView.scrollToPosition(0)
+            binding?.recyclerView?.scrollToPosition(0)
             viewModel.searchPhotos("textures")
         }
 
         nature?.setOnClickListener {
-            binding.recyclerView.scrollToPosition(0)
+            binding?.recyclerView?.scrollToPosition(0)
             viewModel.searchPhotos("nature")
         }
 
         food?.setOnClickListener {
-            binding.recyclerView.scrollToPosition(0)
+            binding?.recyclerView?.scrollToPosition(0)
             viewModel.searchPhotos("food")
         }
 
         travel?.setOnClickListener {
-            binding.recyclerView.scrollToPosition(0)
+            binding?.recyclerView?.scrollToPosition(0)
             viewModel.searchPhotos("travel")
         }
 
         animals?.setOnClickListener {
-            binding.recyclerView.scrollToPosition(0)
+            binding?.recyclerView?.scrollToPosition(0)
             viewModel.searchPhotos("animals")
         }
-
     }
 
-    private fun setRecyclerView() {
-        binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
+
+    private fun observe(unsplashPhotoAdapter: UnsplashPhotoAdapter) {
+        viewModel.photos.observe(viewLifecycleOwner) {
+            unsplashPhotoAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
@@ -135,7 +136,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 if (query != null) {
-                    binding.recyclerView.scrollToPosition(0)
                     viewModel.searchPhotos(query)
                     searchView.clearFocus()
                 }
@@ -144,9 +144,9 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    if(newText.length == 0){
-                        binding.recyclerView.scrollToPosition(0)
-                        viewModel.searchPhotos("popular")
+                    if (newText.isEmpty()) {
+                        binding?.recyclerView?.scrollToPosition(0)
+                        viewModel.searchPhotos("new")
                         searchView.clearFocus()
                     }
                 }
@@ -156,12 +156,12 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     }
 
     private fun initialization() {
-        d_3 = binding.nature
-        textures = binding.bus
-        nature = binding.car
-        food = binding.train
-        travel = binding.trending
-        animals = binding.animals
+        d_3 = binding?.nature
+        textures = binding?.bus
+        nature = binding?.car
+        food = binding?.train
+        travel = binding?.trending
+        animals = binding?.animals
     }
 
 

@@ -15,9 +15,5 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" >
 
-
-
-
     </androidx.fragment.app.FragmentContainerView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

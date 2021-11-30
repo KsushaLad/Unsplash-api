@@ -12,10 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var navController: NavController
 
-
-
+    private var navC: NavController? = null
 
     @SuppressLint("CommitTransaction", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,23 +22,14 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
-        navController = navHostFragment.findNavController()
 
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        with(navHostFragment.findNavController()) { navC = this }
 
-
-
+        val appBarConfiguration = AppBarConfiguration(navC!!.graph)
+        setupActionBarWithNavController(navC!!, appBarConfiguration)
     }
-
-
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return navC!!.navigateUp() || super.onSupportNavigateUp()
     }
-
-
-
-
-
 }

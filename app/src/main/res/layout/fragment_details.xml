@@ -4,41 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.codinginflow.imagesearchapp.ui.details.DetailsFragment"
-    android:padding="5dp"
-    android:layout_margin="5dp"
-    >
+    android:padding="@dimen/layout_marginBottom"
+    android:layout_margin="@dimen/layout_marginBottom">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginTop="45dp"
-
-            android:layout_marginBottom="1dp"
-            android:layout_margin="5dp"
-
+            android:layout_marginTop="@dimen/top_margin"
+            android:layout_margin="@dimen/layout_marginBottom"
             tools:ignore="RtlSymmetry">
 
             <ImageView
-                android:id="@+id/image_view"
+                android:id="@+id/imgImagePreview"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_marginBottom="4dp"
+                android:layout_height="@dimen/imageview_height"
+                android:layout_marginBottom="@dimen/bottom_margin"
                 android:adjustViewBounds="true"
                 android:scaleType="center"
-
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="@dimen/margin_top"
                 android:background="@drawable/item"
                 android:layout_gravity="center_horizontal"
                 tools:scaleType="centerCrop"
                 tools:src="@mipmap/ic_launcher_round" />
-
 
 
             <TextView
@@ -47,8 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:layout_marginTop="5dp"
-                tools:text="This is the description"
+                android:layout_marginTop="@dimen/layout_marginBottom"
+                tools:text="@string/this_is_the_description"
                 android:textColor="@color/black"
                 tools:visibility="visible" />
 
@@ -60,24 +53,22 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:visibility="gone"
-                android:layout_marginTop="5dp"
-                tools:text="Photo by XYZ on Unsplash"
+                android:layout_marginTop="@dimen/layout_marginBottom"
+                tools:text="@string/photo_by_XYZ_on_Unsplash"
                 tools:visibility="visible" />
 
             <android.widget.Button
                 android:id="@+id/set"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:textSize="15sp"
+                android:layout_height="@dimen/cardView_height"
+                android:textSize="@dimen/textSize"
                 android:textColor="@color/white"
                 android:text="@string/wallpaper"
                 android:background="@drawable/button"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="25dp"
+                android:layout_margin="@dimen/margin"
                 tools:ignore="ObsoleteLayoutParam" />
-
         </LinearLayout>
-
     </ScrollView>
 
     <ProgressBar
@@ -85,7 +76,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
-
-
 
 </FrameLayout>
