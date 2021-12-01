@@ -152,7 +152,12 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                if(::textChangeCountDownJob.isInitialized)
+                    textChangeCountDownJob.cancel()
 
+                textChangeCountDownJob = lifecycleScope.launch {
+                    delay(3000)
+                }
                 if (query != null) {
                     viewModel.searchPhotos(query)
                     searchView.clearFocus()
