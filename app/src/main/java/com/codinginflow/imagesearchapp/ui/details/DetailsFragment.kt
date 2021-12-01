@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -24,6 +25,8 @@ import kotlinx.android.synthetic.main.fragment_details.view.*
 import java.io.IOException
 import com.codinginflow.imagesearchapp.MyScaleGestures
 import com.codinginflow.imagesearchapp.R.string.photo_by_on_Unsplash
+import com.codinginflow.imagesearchapp.data.UnsplashPhoto
+import com.codinginflow.imagesearchapp.ui.gallery.UnsplashPhotoAdapter
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
@@ -37,7 +40,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         val wallpaperManager = WallpaperManager.getInstance(requireContext())
         binding.apply {
             val photo = args.photo
-            detailsPhotoText()
+            val path = args.photo.urls.full
+            detailsPhotoText(path, photo)
             imgImagePreview.setOnTouchListener(MyScaleGestures(requireContext()))
             setWallpaper(wallpaperManager)
             textViewDescription.text = photo.description
@@ -73,7 +77,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
-    private fun detailsPhotoText() {
+    private fun detailsPhotoText(arg: String, photoViewHolder: UnsplashPhoto) {
         Glide.with(this@DetailsFragment)
             .load(args.photo.urls.full)
             .error(R.drawable.ic_error)

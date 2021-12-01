@@ -1,6 +1,9 @@
 package com.codinginflow.imagesearchapp.ui.gallery
 
 import android.os.Bundle
+import android.os.Handler
+import android.provider.Contacts
+import android.provider.Contacts.Intents.UI
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -9,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,10 +20,16 @@ import com.codinginflow.imagesearchapp.R
 import com.codinginflow.imagesearchapp.data.UnsplashPhoto
 import com.codinginflow.imagesearchapp.databinding.FragmentGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import android.os.CountDownTimer
+import android.util.Log
+
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment(R.layout.fragment_gallery),
-    UnsplashPhotoAdapter.OnItemClickListener {
+    UnsplashPhotoAdapter.OnItemClickListener, SearchView.OnQueryTextListener{
 
     private val viewModel by viewModels<GalleryViewModel>()
 
@@ -32,6 +42,14 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     var food: CardView? = null
     var travel: CardView? = null
     var animals: CardView? = null
+
+    private lateinit var textChangeCountDownJob: Job
+
+    var mQueryString: String? = null
+    var mHandler: Handler? = null
+
+    private val waitingTime = 200
+    private var cntr: CountDownTimer? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -143,6 +161,22 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+//                if (newText != null) {
+//                    if (newText.isEmpty()) {
+//                        binding?.recyclerView?.scrollToPosition(0)
+//                        viewModel.searchPhotos("new")
+//                        searchView.clearFocus()
+//                    }
+//                }
+//                return true
+
+                if(::textChangeCountDownJob.isInitialized)
+                    textChangeCountDownJob.cancel()
+
+                textChangeCountDownJob = lifecycleScope.launch {
+                    delay(3000)
+                }
+
                 if (newText != null) {
                     if (newText.isEmpty()) {
                         binding?.recyclerView?.scrollToPosition(0)
@@ -150,9 +184,13 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                         searchView.clearFocus()
                     }
                 }
-                return true
+                return false
+
             }
+
         })
+
+
     }
 
     private fun initialization() {
@@ -169,4 +207,21 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if(::textChangeCountDownJob.isInitialized)
+            textChangeCountDownJob.cancel()
+
+        textChangeCountDownJob = lifecycleScope.launch {
+            delay(800)
+        }
+
+        return false
+    }
+
+
 }

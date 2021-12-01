@@ -26,12 +26,9 @@ class GalleryViewModel @ViewModelInject constructor(
     }
 
     fun searchPhotos(query: String) {
-        if (query.isBlank()) {
-            Thread.sleep(4000)
+
             currentQuery.value = query
-        } else {
-            currentQuery.value = query
-        }
+
     }
 
     private suspend fun ac(): Boolean {

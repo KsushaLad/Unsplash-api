@@ -36,7 +36,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         app:drawableStartCompat="@drawable/ic_baseline_insert_emoticon_24"
         tools:text="username" />
 
