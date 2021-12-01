@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private var navC: NavController? = null
 
+    // TODO теперь ты пооставляла форс анрапы(!!). В рошлом коммету было описано, как оно должно было выглядить
+    //  with(navHostFragment.findNavController()) { navController = this .... }
     @SuppressLint("CommitTransaction", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

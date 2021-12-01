@@ -26,11 +26,10 @@ class GalleryViewModel @ViewModelInject constructor(
     }
 
     fun searchPhotos(query: String) {
-
             currentQuery.value = query
-
     }
 
+    // TODO Эта функция не используется и вот так фризить не очень хорошо
     private suspend fun ac(): Boolean {
         delay(2000)
         return true

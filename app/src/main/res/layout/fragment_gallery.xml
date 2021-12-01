@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--TODO  все так же нет Material елементов. Вижу стандартные TextView,
+      CardView, Button, ImageView( случае с картинкой надо
+       использовать AppCompatImageView)-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:id="@+id/relative"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context="com.codinginflow.imagesearchapp.ui.gallery.GalleryFragment">
 
 
-
+    <!-- TODO
+            параметры layout_width и layout_height лучше не задавать руками, потому что нет
+            гарантии, что будет смотрется одинаково на разных экранах. Тебе надо сделать
+            высоту как врап контент, а ширину как 0dp. Потом надо почитать про androidx.constraintlayout.widget.Guideline и
+            добавить сюда. Тогда ты сможешь правильно перевязать элементы для любого типа экранов.-->
     <androidx.cardview.widget.CardView
         android:id="@+id/nature"
         android:layout_width="@dimen/cardView_width"
         android:layout_height="@dimen/cardView_height"
-        app:cardCornerRadius="@dimen/cardCornerRadius"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/layout_marginStart"
-        app:layout_constraintBottom_toTopOf="@id/car"
         android:layout_marginTop="@dimen/layout_marginTop"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintBottom_toTopOf="@id/car"
         app:layout_constraintEnd_toStartOf="@id/bus"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,6 +43,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/textSize"
             tools:ignore="RtlSymmetry,SpUsage" />
+
         <ImageView
             android:layout_width="@dimen/imageview_width"
             android:layout_height="@dimen/imageview_width"
@@ -49,12 +57,12 @@
         android:id="@+id/bus"
         android:layout_width="@dimen/cardView_width"
         android:layout_height="@dimen/cardView_height"
-        android:layout_marginEnd="@dimen/layout_marginStart"
         android:layout_marginStart="@dimen/layout_marginStart"
         android:layout_marginTop="@dimen/layout_marginTop"
-        app:layout_constraintBottom_toTopOf="@id/train"
+        android:layout_marginEnd="@dimen/layout_marginStart"
         android:background="@color/white"
         app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintBottom_toTopOf="@id/train"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/nature"
         app:layout_constraintTop_toTopOf="parent">
@@ -81,163 +89,163 @@
     </androidx.cardview.widget.CardView>
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/car"
-                android:layout_width="@dimen/cardView_width"
-                android:layout_height="@dimen/cardView_height"
-                android:layout_marginTop="@dimen/layout_marginStart"
-                android:layout_marginStart="@dimen/layout_marginStart"
-                app:layout_constraintBottom_toTopOf="@id/trending"
-                app:layout_constraintTop_toBottomOf="@id/nature"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/train"
-                android:layout_marginBottom="@dimen/layout_marginBottom"
-                app:cardCornerRadius="@dimen/cardCornerRadius"
-                android:background="@color/white">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/car"
+        android:layout_width="@dimen/cardView_width"
+        android:layout_height="@dimen/cardView_height"
+        android:layout_marginStart="@dimen/layout_marginStart"
+        android:layout_marginTop="@dimen/layout_marginStart"
+        android:layout_marginBottom="@dimen/layout_marginBottom"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintBottom_toTopOf="@id/trending"
+        app:layout_constraintEnd_toStartOf="@id/train"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nature">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient_1"
-                    android:gravity="end"
-                    android:paddingTop="@dimen/cardCornerRadius"
-                    android:paddingEnd="@dimen/layout_marginStart"
-                    android:text="@string/nature"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textSize"
-                    tools:ignore="RtlSymmetry" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_1"
+            android:gravity="end"
+            android:paddingTop="@dimen/cardCornerRadius"
+            android:paddingEnd="@dimen/layout_marginStart"
+            android:text="@string/nature"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            tools:ignore="RtlSymmetry" />
 
-                <ImageView
-                    android:layout_width="@dimen/imageview_width"
-                    android:layout_height="@dimen/imageview_width"
-                    android:layout_marginStart="@dimen/layout_marginStart"
-                    android:layout_marginTop="@dimen/layout_marginBottom"
-                    android:layout_marginBottom="@dimen/layout_marginBottom"
-                    android:src="@drawable/palm" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/train"
-                android:layout_width="@dimen/cardView_width"
-                android:layout_height="@dimen/cardView_height"
-                app:layout_constraintTop_toBottomOf="@id/bus"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/car"
-                android:layout_marginTop="@dimen/layout_marginStart"
-                android:layout_marginEnd="@dimen/layout_marginStart"
-                android:layout_marginStart="@dimen/layout_marginStart"
-                android:layout_marginBottom="@dimen/layout_marginBottom"
-                app:cardCornerRadius="@dimen/cardCornerRadius"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient_1"
-                    android:gravity="end"
-                    android:paddingTop="@dimen/cardCornerRadius"
-                    android:paddingEnd="@dimen/layout_marginStart"
-                    android:text="@string/food"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textSize"
-                    tools:ignore="RtlSymmetry" />
-
-                <ImageView
-                    android:layout_width="@dimen/imageview_width"
-                    android:layout_height="@dimen/imageview_width"
-                    android:layout_marginStart="@dimen/layout_marginTop"
-                    android:layout_marginTop="@dimen/layout_marginBottom"
-                    android:layout_marginBottom="@dimen/layout_marginBottom"
-                    android:src="@drawable/cake" />
-            </androidx.cardview.widget.CardView>
+        <ImageView
+            android:layout_width="@dimen/imageview_width"
+            android:layout_height="@dimen/imageview_width"
+            android:layout_marginStart="@dimen/layout_marginStart"
+            android:layout_marginTop="@dimen/layout_marginBottom"
+            android:layout_marginBottom="@dimen/layout_marginBottom"
+            android:src="@drawable/palm" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-                android:id="@+id/trending"
-                android:layout_width="@dimen/cardView_width"
-                android:layout_height="@dimen/cardView_height"
-                android:layout_marginStart="@dimen/layout_marginStart"
-                android:layout_marginTop="@dimen/layout_marginStart"
-                app:layout_constraintEnd_toStartOf="@id/animals"
-                app:layout_constraintTop_toBottomOf="@id/car"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="@dimen/layout_marginBottom"
-                app:cardCornerRadius="@dimen/cardCornerRadius"
-                android:background="@color/white"
-                android:backgroundTint="@color/white">
+        android:id="@+id/train"
+        android:layout_width="@dimen/cardView_width"
+        android:layout_height="@dimen/cardView_height"
+        android:layout_marginStart="@dimen/layout_marginStart"
+        android:layout_marginTop="@dimen/layout_marginStart"
+        android:layout_marginEnd="@dimen/layout_marginStart"
+        android:layout_marginBottom="@dimen/layout_marginBottom"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/car"
+        app:layout_constraintTop_toBottomOf="@id/bus">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient_1"
-                    android:gravity="end"
-                    android:paddingTop="@dimen/cardCornerRadius"
-                    android:paddingEnd="@dimen/layout_marginStart"
-                    android:text="@string/travel"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/textSize"
-                    tools:ignore="RtlSymmetry" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_1"
+            android:gravity="end"
+            android:paddingTop="@dimen/cardCornerRadius"
+            android:paddingEnd="@dimen/layout_marginStart"
+            android:text="@string/food"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            tools:ignore="RtlSymmetry" />
 
-                <ImageView
-                    android:layout_width="@dimen/imageview_width"
-                    android:layout_height="@dimen/imageview_width"
-                    android:layout_marginStart="@dimen/layout_marginTop"
-                    android:layout_marginTop="@dimen/layout_marginBottom"
-                    android:layout_marginBottom="@dimen/layout_marginBottom"
-                    android:src="@drawable/wave_98415" />
-            </androidx.cardview.widget.CardView>
+        <ImageView
+            android:layout_width="@dimen/imageview_width"
+            android:layout_height="@dimen/imageview_width"
+            android:layout_marginStart="@dimen/layout_marginTop"
+            android:layout_marginTop="@dimen/layout_marginBottom"
+            android:layout_marginBottom="@dimen/layout_marginBottom"
+            android:src="@drawable/cake" />
+    </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/animals"
-                android:layout_width="@dimen/cardView_width"
-                android:layout_height="@dimen/cardView_height"
-                android:layout_marginLeft="@dimen/layout_marginTop"
-                android:layout_marginTop="@dimen/layout_marginStart"
-                android:layout_marginEnd="@dimen/layout_marginStart"
-                android:layout_marginStart="@dimen/layout_marginStart"
-                android:layout_marginBottom="@dimen/layout_marginBottom"
-                app:cardCornerRadius="@dimen/cardCornerRadius"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/train"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/trending"
-                android:backgroundTint="@color/white"
-                tools:ignore="RtlHardcoded">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/trending"
+        android:layout_width="@dimen/cardView_width"
+        android:layout_height="@dimen/cardView_height"
+        android:layout_marginStart="@dimen/layout_marginStart"
+        android:layout_marginTop="@dimen/layout_marginStart"
+        android:layout_marginBottom="@dimen/layout_marginBottom"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintEnd_toStartOf="@id/animals"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/car">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient_1"
-                    android:gravity="end"
-                    android:paddingTop="@dimen/cardCornerRadius"
-                    android:paddingEnd="@dimen/layout_marginStart"
-                    android:text="@string/animals"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/layout_marginStart"
-                    tools:ignore="RtlSymmetry,SpUsage" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_1"
+            android:gravity="end"
+            android:paddingTop="@dimen/cardCornerRadius"
+            android:paddingEnd="@dimen/layout_marginStart"
+            android:text="@string/travel"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            tools:ignore="RtlSymmetry" />
 
-                <ImageView
-                    android:layout_width="@dimen/imageview_width"
-                    android:layout_height="@dimen/imageview_width"
-                    android:layout_marginStart="@dimen/layout_marginTop"
-                    android:layout_marginTop="@dimen/layout_marginBottom"
-                    android:layout_marginBottom="@dimen/layout_marginBottom"
-                    android:src="@drawable/animal_panda_2737" />
-            </androidx.cardview.widget.CardView>
+        <ImageView
+            android:layout_width="@dimen/imageview_width"
+            android:layout_height="@dimen/imageview_width"
+            android:layout_marginStart="@dimen/layout_marginTop"
+            android:layout_marginTop="@dimen/layout_marginBottom"
+            android:layout_marginBottom="@dimen/layout_marginBottom"
+            android:src="@drawable/wave_98415" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/animals"
+        android:layout_width="@dimen/cardView_width"
+        android:layout_height="@dimen/cardView_height"
+        android:layout_marginStart="@dimen/layout_marginStart"
+        android:layout_marginLeft="@dimen/layout_marginTop"
+        android:layout_marginTop="@dimen/layout_marginStart"
+        android:layout_marginEnd="@dimen/layout_marginStart"
+        android:layout_marginBottom="@dimen/layout_marginBottom"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/trending"
+        app:layout_constraintTop_toBottomOf="@id/train"
+        tools:ignore="RtlHardcoded">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_1"
+            android:gravity="end"
+            android:paddingTop="@dimen/cardCornerRadius"
+            android:paddingEnd="@dimen/layout_marginStart"
+            android:text="@string/animals"
+            android:textColor="@color/black"
+            android:textSize="@dimen/layout_marginStart"
+            tools:ignore="RtlSymmetry,SpUsage" />
+
+        <ImageView
+            android:layout_width="@dimen/imageview_width"
+            android:layout_height="@dimen/imageview_width"
+            android:layout_marginStart="@dimen/layout_marginTop"
+            android:layout_marginTop="@dimen/layout_marginBottom"
+            android:layout_marginBottom="@dimen/layout_marginBottom"
+            android:src="@drawable/animal_panda_2737" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/trending"
         android:layout_marginStart="@dimen/layout_marginBottom"
         android:layout_marginTop="@dimen/layout_marginBottom"
         android:layout_marginEnd="@dimen/layout_marginBottom"
         android:layout_marginBottom="@dimen/layout_marginBottom"
         android:padding="@dimen/layout_marginBottom"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/trending"
         app:spanCount="2"
-        tools:listitem="@layout/item_unsplash_photo"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/item_unsplash_photo" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -301,10 +309,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
+        android:background="@color/white"
         android:gravity="center"
         android:text="@string/by_ksenia_ladoshko"
         android:textColor="@color/black"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints" />
 

@@ -11,6 +11,7 @@ import com.codinginflow.imagesearchapp.databinding.UnsplashPhotoLoadStateFooterB
 class UnsplashPhotoLoadStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<UnsplashPhotoLoadStateAdapter.LoadStateViewHolder>() {
 
+    // TODO Здесь можно пишисать без указания типа и скобок. Просто onCreateViewHolder = LoadStateViewHolder()
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         return LoadStateViewHolder(
             UnsplashPhotoLoadStateFooterBinding.inflate(
@@ -25,8 +26,9 @@ class UnsplashPhotoLoadStateAdapter(private val retry: () -> Unit) :
         holder.bind(loadState)
     }
 
-    inner class LoadStateViewHolder(private val binding: UnsplashPhotoLoadStateFooterBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    // TODO Избавься пожалуйста от этого inner класса. Просто создай его отдельным класом. Так же я бы рекомендовал создать папку,
+    //  внутри gallery и назвать ее adapter. Туда сложи все, что касается его.
+    inner class LoadStateViewHolder(private val binding: UnsplashPhotoLoadStateFooterBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.buttonRetry.setOnClickListener {

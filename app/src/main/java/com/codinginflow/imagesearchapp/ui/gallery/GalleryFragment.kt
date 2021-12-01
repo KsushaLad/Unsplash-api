@@ -37,6 +37,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding
 
+    // TODO Зачем тебе эти переменные, если ты просто можешь обращаться к элементам через binding
     var d_3: CardView? = null
     var textures: CardView? = null
     var nature: CardView? = null
@@ -46,6 +47,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
     private lateinit var textChangeCountDownJob: Job
 
+    // TODO Как я вижу, это не используемые переменные. Убери их, чтобы не захломлять код
     var mQuery : String? = null
     val handler : Handler? = null
 
@@ -74,7 +76,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         }
     }
 
-
+    // TODO Избавься пожалуйста тут от this!! (!!)
     private fun load(unsplashPhotoAdapter: UnsplashPhotoAdapter) {
         unsplashPhotoAdapter.addLoadStateListener { loadState ->
             binding.apply {
@@ -95,7 +97,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         }
     }
 
-
+    // TODO сделай пожалуйста свои типы быстрого поиска как enum. Так будет проавильнее
     private fun buttonsCategory() {
         d_3?.setOnClickListener {
             binding?.recyclerView?.scrollToPosition(0)
@@ -128,13 +130,11 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         }
     }
 
-
     private fun observe(unsplashPhotoAdapter: UnsplashPhotoAdapter) {
         viewModel.photos.observe(viewLifecycleOwner) {
             unsplashPhotoAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
-
 
     override fun onItemClick(photo: UnsplashPhoto) {
         val action = GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(photo)
@@ -161,15 +161,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                         searchView.clearFocus()
                     }
                 }
-//                val myHandler = Handler()
-//                //myHandler!!.removeCallbacksAndMessages(null)
-//                myHandler.postDelayed(Runnable {
-//                    if (query != null) {
-//                        viewModel.searchPhotos(query)
-//                        searchView.clearFocus()
-//                    }
-//                }, 500)
-
                 return true
             }
 
@@ -180,27 +171,11 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                     delay(1500)
                          if (newText != null) {
                              if (newText.isEmpty()) {
-                                 //binding?.recyclerView?.scrollToPosition(0)
                                  viewModel.searchPhotos("new")
                                  searchView.clearFocus()
                              }
                          }
                 }
-//                if (newText != null) {
-//                    if (newText.isEmpty()) {
-//                        binding?.recyclerView?.scrollToPosition(0)
-//                        viewModel.searchPhotos("new")
-//                        searchView.clearFocus()
-//                    }
-//                }
-
-                //
-//                val myHandler = Handler()
-//                //myHandler!!.removeCallbacksAndMessages(null)
-//                myHandler.postDelayed(Runnable{
-
-
-//                }, 500)
                 return false
             }
         })
@@ -220,8 +195,4 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         super.onDestroyView()
         _binding = null
     }
-
-
-
-
 }

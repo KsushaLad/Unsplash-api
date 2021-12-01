@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.codinginflow.imagesearchapp.R
@@ -63,6 +65,8 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
     }
 
+    // TODO Здесь сделать так getString(photo_by_on_Unsplash, args.photo.user.name)
+    //  посмотри, как можно сделать строки, которые с динамической частью. Писать через + не лучшая практика
     @SuppressLint("SetTextI18n", "StringFormatInvalid")
     private fun createLinkToUnsplash(intent: Intent) {
         text_view_creator.apply {
@@ -76,6 +80,17 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             paint.isUnderlineText = true
         }
     }
+
+    // TODO та же самая фигня с экстеншенами
+    //  Для примера:
+    //    fun ImageView.load(uri: Uri) {
+    //        Glide.with(this)
+    //            .load(uri)
+    //            .diskCacheStrategy(DiskCacheStrategy.ALL)
+    //            .transition(DrawableTransitionOptions.withCrossFade())
+    //            .into(this)
+    //    }
+    //   это делается в отдельном файле , допустим с названием ImageViewExt, без класса
 
     private fun detailsPhotoText(arg: String, photoViewHolder: UnsplashPhoto) {
         Glide.with(this@DetailsFragment)

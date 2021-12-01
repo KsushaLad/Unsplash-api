@@ -25,7 +25,8 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
         )
     }
 
-
+    // TODO тут лучше сократь этот метод до 2 строк
+    //  getItem(position)?.let { currentItem -> ... }
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val currentItem = getItem(position)
 
@@ -34,6 +35,9 @@ class UnsplashPhotoAdapter(private val listener: OnItemClickListener) :
         }
     }
 
+    // TODO ты не вынесла в extension, всю работу с загрузкой картинок. Если этот момент не понятен, скажи мне, я пришлю тебе пример, как сделать
+    //  расширение на класс ImageView
+    // TODO точно так же, вынеси это в отдельный класс. И положи в папку adapter
     inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
