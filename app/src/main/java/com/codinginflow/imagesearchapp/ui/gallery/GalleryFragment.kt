@@ -29,7 +29,7 @@ import android.util.Log
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment(R.layout.fragment_gallery),
-    UnsplashPhotoAdapter.OnItemClickListener, SearchView.OnQueryTextListener{
+    UnsplashPhotoAdapter.OnItemClickListener{
 
     private val viewModel by viewModels<GalleryViewModel>()
 
@@ -45,11 +45,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
     private lateinit var textChangeCountDownJob: Job
 
-    var mQueryString: String? = null
-    var mHandler: Handler? = null
-
-    private val waitingTime = 200
-    private var cntr: CountDownTimer? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -166,22 +161,11 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                if (newText != null) {
-//                    if (newText.isEmpty()) {
-//                        binding?.recyclerView?.scrollToPosition(0)
-//                        viewModel.searchPhotos("new")
-//                        searchView.clearFocus()
-//                    }
-//                }
-//                return true
-
                 if(::textChangeCountDownJob.isInitialized)
-                    textChangeCountDownJob.cancel()
-
-                textChangeCountDownJob = lifecycleScope.launch {
+                     textChangeCountDownJob.cancel()
+                     textChangeCountDownJob = lifecycleScope.launch {
                     delay(3000)
                 }
-
                 if (newText != null) {
                     if (newText.isEmpty()) {
                         binding?.recyclerView?.scrollToPosition(0)
@@ -190,12 +174,8 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                     }
                 }
                 return false
-
             }
-
         })
-
-
     }
 
     private fun initialization() {
@@ -213,20 +193,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         _binding = null
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        if(::textChangeCountDownJob.isInitialized)
-            textChangeCountDownJob.cancel()
-
-        textChangeCountDownJob = lifecycleScope.launch {
-            delay(800)
-        }
-
-        return false
-    }
 
 
 }
