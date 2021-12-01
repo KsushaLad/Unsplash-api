@@ -25,6 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import android.os.CountDownTimer
 import android.util.Log
+import kotlinx.coroutines.Runnable
 
 
 @AndroidEntryPoint
@@ -44,6 +45,9 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     var animals: CardView? = null
 
     private lateinit var textChangeCountDownJob: Job
+
+    var mQuery : String? = null
+    val handler : Handler? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -151,12 +155,21 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                     textChangeCountDownJob.cancel()
 
                 textChangeCountDownJob = lifecycleScope.launch {
-                    delay(3000)
+                    delay(1500)
+                    if (query != null) {
+                        viewModel.searchPhotos(query)
+                        searchView.clearFocus()
+                    }
                 }
-                if (query != null) {
-                    viewModel.searchPhotos(query)
-                    searchView.clearFocus()
-                }
+//                val myHandler = Handler()
+//                //myHandler!!.removeCallbacksAndMessages(null)
+//                myHandler.postDelayed(Runnable {
+//                    if (query != null) {
+//                        viewModel.searchPhotos(query)
+//                        searchView.clearFocus()
+//                    }
+//                }, 500)
+
                 return true
             }
 
@@ -164,19 +177,34 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                 if(::textChangeCountDownJob.isInitialized)
                      textChangeCountDownJob.cancel()
                      textChangeCountDownJob = lifecycleScope.launch {
-                    delay(3000)
+                    delay(1500)
+                         if (newText != null) {
+                             if (newText.isEmpty()) {
+                                 //binding?.recyclerView?.scrollToPosition(0)
+                                 viewModel.searchPhotos("new")
+                                 searchView.clearFocus()
+                             }
+                         }
                 }
-                if (newText != null) {
-                    if (newText.isEmpty()) {
-                        binding?.recyclerView?.scrollToPosition(0)
-                        viewModel.searchPhotos("new")
-                        searchView.clearFocus()
-                    }
-                }
+//                if (newText != null) {
+//                    if (newText.isEmpty()) {
+//                        binding?.recyclerView?.scrollToPosition(0)
+//                        viewModel.searchPhotos("new")
+//                        searchView.clearFocus()
+//                    }
+//                }
+
+                //
+//                val myHandler = Handler()
+//                //myHandler!!.removeCallbacksAndMessages(null)
+//                myHandler.postDelayed(Runnable{
+
+
+//                }, 500)
                 return false
             }
         })
-    }
+   }
 
     private fun initialization() {
         d_3 = binding?.nature
